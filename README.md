@@ -23,7 +23,8 @@ podcast.downloadAnyNewFiles()
 
 Useful, optional object constructor parameters:
 
-- **outputFolder**: *(Defaults to "./")* Where to put the downloaded (.mp3) files
+- **outputFolder**: *(Defaults to "./")* Where to put the downloaded files
 - **prepend**: *(Defaults to "")* Useful for relative links; adds to the start of each link to download
 - **append**: *(Defaults to "")* Useful for relative links; adds to the end of each link to download
 - **downloadedLogsFolder**: *(Defaults to "./")* Where to store the "remembered" downloaded filenames
+- **fileExtensionsRegex**: *(Defaults to "\\.mp3")* Regular expression, matching the target file extension(s) to find and download
