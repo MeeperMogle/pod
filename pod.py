@@ -2,7 +2,7 @@ import re, os, urllib.request, urllib.parse, urllib.error
 
 class pod():
     
-    def __init__(self, rssUrl, friendlyName, downloadUrlRegex, outputFolder = "./", prepend = "", append = "", downloadedLogsFolder = "./"):
+    def __init__(self, rssUrl, friendlyName, downloadUrlRegex, outputFolder = "./", prepend = "", append = "", downloadedLogsFolder = "./", fileExtensionsRegex = "\.mp3"):
         self.rssUrl = rssUrl
         self.friendlyName = friendlyName
         self.loggingName = re.sub("[ _-]","",self.friendlyName)
@@ -11,6 +11,7 @@ class pod():
         self.appender = append
         self.outputFolder = outputFolder
         self.downloadedLogsFolder = downloadedLogsFolder
+        self.extRegex = fileExtensionsRegex
         
     def getDownloadedAlreadyFilename(self):
         return self.downloadedLogsFolder + self.loggingName + ".downloaded"
@@ -60,7 +61,7 @@ class pod():
             
             if result != None:
                 fullUrl = self.prepender + result.group() + self.appender
-                onlyFilename = re.search("(?<=/)[^/]+\.mp3$", fullUrl).group()
+                onlyFilename = re.search("(?<=/)[^/]+"+self.extRegex+"$", fullUrl).group()
                 
                 if not self.isAlreadyDownloaded(onlyFilename):
                     print("\nNext filename found")
