@@ -61,21 +61,29 @@ class pod():
             
             if result != None:
                 fullUrl = self.prepender + result.group() + self.appender
-                onlyFilename = re.search("(?<=/)[^/]+"+self.extRegex+"$", fullUrl).group()
                 
-                if not self.isAlreadyDownloaded(onlyFilename):
-                    print("\nNext filename found")
-                    try:
-                        print("\tDownloading",onlyFilename,"\n\tfrom",re.sub(onlyFilename,"",fullUrl),"\n\tto",self.outputFolder)
-                        self.addAlreadyDownloaded(onlyFilename)
+                try:
+                    onlyFilename = re.search("(?<=/)[^/]+"+self.extRegex+"$", fullUrl).group()
+                
+                    if not self.isAlreadyDownloaded(onlyFilename):
+                        print("\nNext filename found")
+                        try:
+                            print("\tDownloading",onlyFilename,"\n\tfrom",re.sub(onlyFilename,"",fullUrl),"\n\tto",self.outputFolder)
+                            self.addAlreadyDownloaded(onlyFilename)
+                            
+                            if actuallyDownload:
+                                urllib.request.urlretrieve(fullUrl, self.outputFolder+onlyFilename )
+                        except:
+                            print("\tSomething went wrong, reverting logs\n")
+                            self.removeAlreadyDownloaded(onlyFilename)
+                    else:
+                        print(onlyFilename,"has already been downloaded")
                         
-                        if actuallyDownload:
-                            urllib.request.urlretrieve(fullUrl, self.outputFolder+onlyFilename )
-                    except:
-                        print("\tSomething went wrong, reverting logs\n")
-                        self.removeAlreadyDownloaded(onlyFilename)
-                else:
-                    print(onlyFilename,"has already been downloaded")
+                except AttributeError:
+                    print("Error occurred! Possible cause:")
+                    print("fileExtensionsRegex = '"+self.extRegex+"' not compatible with")
+                    print("downloadUrlRegex = '"+self.targetRegex+"'")
+                    break
         
         print("")
         
