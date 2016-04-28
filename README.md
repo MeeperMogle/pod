@@ -27,4 +27,4 @@ Useful, optional object constructor parameters:
 - **prepend**: *(Defaults to "")* Useful for relative links; adds to the start of each link to download
 - **append**: *(Defaults to "")* Useful for relative links; adds to the end of each link to download
 - **downloadedLogsFolder**: *(Defaults to "./")* Where to store the "remembered" downloaded filenames
-- **fileExtensionsRegex**: *(Defaults to "\\.mp3")* Regular expression, matching the target file extension(s) to find and download
+- **fileExtensionsRegex**: *(Defaults to "\\.mp3")* Matches the target file extension(s) in the feed to find and download
